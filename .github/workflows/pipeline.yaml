@@ -3,23 +3,48 @@ name: Pipeline Checks
 on: [push]
 
 jobs:
-  pipeline-checks:
-    name: Build and Test the Project
+  test:
     runs-on: ubuntu-latest
-
     steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
+          installer-parallel: true
 
-      - name: Install project
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install
+      #----------------------------------------------
+      #              run test suite
+      #----------------------------------------------
+      - name: Run tests
         run: |
-          poetry install
-
-      - name: Safety
-        run: poetry run safety check -i 50571
-
-      - name: Test Project
-        run: poetry run pytest -s -v --cov
+          source .venv/bin/activate
+          poetry run pytest -s -v --cov
