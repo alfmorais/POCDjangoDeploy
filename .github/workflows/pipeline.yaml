@@ -19,16 +19,12 @@ jobs:
       #  run: poetry env use usr/bin/python
       #  working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
 
-      - name: Checks
+      - name: Activate Venv
         run: |
-          ls
-          pwd
-          cd POCDjangoDeploy
-          ls
+          source .venv/bin/activate
 
       - name: Install project
         run: |
-          poetry shell
           poetry install
 
       - name: Safety
