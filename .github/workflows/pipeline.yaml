@@ -5,7 +5,7 @@ on: [push]
 jobs:
   pipeline-checks:
     name: Build and Test the Project
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Install Poetry
@@ -13,15 +13,10 @@ jobs:
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
-          installer-parallel: true
 
-      #- name: Setup Poetry
-      #  run: poetry env use usr/bin/python
-      #  working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
-
-      - name: Activate Venv
-        run: |
-          source .venv/bin/activate
+      - name: Setup Poetry
+        run: poetry env use usr/bin/python
+        working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
 
       - name: Install project
         run: |
