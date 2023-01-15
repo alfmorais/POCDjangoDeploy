@@ -14,13 +14,10 @@ jobs:
           poetry config virtualenvs.in-project true
 
       - name: Install Dependecies
-        run: |
-          poetry install
+        run: poetry install
 
       - name: Safety
-        run: |
-          poetry run safety check -i 50571
+        run: poetry run safety check -i 50571
 
       - name: Test Project
-        run: |
-          poetry run pytest -s -v --cov
+        run: poetry run pytest -s -v --cov
