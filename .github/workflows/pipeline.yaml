@@ -23,6 +23,8 @@ jobs:
         run: |
           ls
           pwd
+          cd POCDjangoDeploy
+          ls
 
       - name: Install project
         run: |
