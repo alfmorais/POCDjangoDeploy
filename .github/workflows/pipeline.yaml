@@ -16,8 +16,8 @@ jobs:
           installer-parallel: true
 
       - name: Setup Poetry
-        run: poetry env use ${pythonLocation}/bin/python
-        # working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
+        run: poetry env use usr/bin/python
+        working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
 
       - name: Install project
         run: |
