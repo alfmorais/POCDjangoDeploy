@@ -16,7 +16,7 @@ jobs:
           installer-parallel: true
 
       - name: Install project
-        run: poetry install
+        run: poetry --version
 
       - name: Safety
         run: poetry run safety check -i 50571
