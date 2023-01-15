@@ -15,9 +15,14 @@ jobs:
           virtualenvs-in-project: true
           installer-parallel: true
 
-      - name: Setup Poetry
-        run: poetry env use usr/bin/python
-        working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
+      #- name: Setup Poetry
+      #  run: poetry env use usr/bin/python
+      #  working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
+
+      - name: Checks
+        run: |
+          ls
+          pwd
 
       - name: Install project
         run: |
