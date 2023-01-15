@@ -20,7 +20,9 @@ pytest-django = "4.5.2"
 pytest-factoryboy = "*"
 python = "^3.8"
 PyYAML = "*"
+requests = "*"
 safety = "2.3.5"
+urllib3 = "*"
 virtualenv = "20.0.33"
 
 
