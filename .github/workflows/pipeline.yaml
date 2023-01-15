@@ -1,0 +1,16 @@
+name: Pipeline Checks
+
+on: [push]
+
+jobs:
+  pipeline-checks:
+    name: Build and Test the Project
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Build Project
+        run: DOCKER_BUILDKIT=1 docker build -f Dockerfile .
+        run: DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose build
+      
+      - name: Test Project
+        run: docker-compose run --rm api pytest -v --cov-fail-under 97 --cov-report term-missing

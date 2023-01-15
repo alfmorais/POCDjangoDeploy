@@ -1,6 +1,11 @@
-from rest_framework.mixins import (CreateModelMixin, DestroyModelMixin,
-                                   ListModelMixin, RetrieveModelMixin,
-                                   UpdateModelMixin)
+from rest_framework.mixins import (
+    CreateModelMixin, 
+    DestroyModelMixin,
+    ListModelMixin, 
+    RetrieveModelMixin,
+    UpdateModelMixin
+)
+from rest_framework.schemas.openapi import AutoSchema
 from rest_framework.viewsets import GenericViewSet
 
 from .models import Book
@@ -9,9 +14,9 @@ from .serializers import BookListSerializer
 
 class BooksAPIViewSet(
     CreateModelMixin,
-    # DestroyModelMixin,
+    DestroyModelMixin,
     RetrieveModelMixin,
-    # UpdateModelMixin,
+    UpdateModelMixin,
     ListModelMixin,
     GenericViewSet,
 ):
@@ -24,6 +29,11 @@ class BooksAPIViewSet(
     queryset = Book.objects.all()
     lookup_url_kwarg = "id"
     lookup_field = "id"
+    schema = AutoSchema(
+        tags=["Books"],
+        component_name="Book",
+        operation_id_base="Book",
+    )
 
     def get_serializer_class(self, *args, **kwargs):
         return self.serializer_map.get(self.request.method)

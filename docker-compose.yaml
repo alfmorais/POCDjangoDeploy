@@ -1,0 +1,13 @@
+version: "3.8"
+
+
+services:
+  api:
+    build: .
+    volumes:
+      - .:/api
+    ports:
+      - 8000:8000
+    image: api
+    container_name: api
+    command: python api/manage.py runserver 0.0.0.0:8000
