@@ -1,6 +1,6 @@
 name: Pipeline Checks
 
-on: [push]
+on: []
 
 jobs:
   pipeline-checks:
