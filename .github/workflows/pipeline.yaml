@@ -14,10 +14,6 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
-      - name: Setup Poetry
-        run: poetry env use usr/bin/python
-        working-directory: /home/runner/work/POCDjangoDeploy/pyproject.toml
-
       - name: Install project
         run: |
           poetry install
